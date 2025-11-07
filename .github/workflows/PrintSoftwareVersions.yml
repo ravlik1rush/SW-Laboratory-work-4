@@ -1,0 +1,26 @@
+name: Print Software Versions
+
+on:
+  push:
+    branches:
+      - SW_LabWork_4   # або твоя актуальна гілка
+
+jobs:
+  PrintProcessingSoftwareVersions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print OS version
+        run: uname -a
+
+      - name: Print Node.js version
+        run: node --version
+
+      - name: Print npm version
+        run: npm --version
+
+  PrintDBMSVersions:
+    runs-on: ubuntu-latest
+    needs: [PrintProcessingSoftwareVersions]
+    steps:
+      - name: Print MongoDB version
+        run: mongod --version
