@@ -1,0 +1,167 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MuseumMonitoring",
+  "description": "Схема моніторингу систем музею: працівники, пристрої, сенсори, умови, інциденти тощо.",
+  "type": "object",
+  "properties": {
+    "workers": {
+      "description": "Список працівників музею",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "workerId": { "type": "integer", "description": "Унікальний ідентифікатор працівника" },
+          "firstName": {
+            "type": "string",
+            "description": "Ім'я працівника",
+            "minLength": 2,
+            "maxLength": 100,
+            "pattern": "^[A-Za-zА-Яа-яЁёЇїІіЄє' \\-]{2,100}$"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Прізвище працівника",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "role": { "type": "string", "description": "Посада або роль працівника" }
+        },
+        "required": ["workerId", "firstName", "lastName", "role"]
+      }
+    },
+    "sensors": {
+      "description": "Список сенсорів для контролю параметрів середовища",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "sensorId": { "type": "integer", "description": "Ідентифікатор сенсора" },
+          "type": { "type": "string", "description": "Тип сенсора (температура, вологість тощо)" },
+          "location": { "type": "string", "description": "Розташування сенсора" },
+          "reading": { "type": "number", "description": "Поточне значення показника" },
+          "conditionRef": { "type": "integer", "description": "Посилання на умови середовища" }
+        },
+        "required": ["sensorId", "type"]
+      }
+    },
+    "devices": {
+      "description": "Пристрої, що використовуються для моніторингу або безпеки",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "deviceId": { "type": "integer", "description": "Унікальний ідентифікатор пристрою" },
+          "name": { "type": "string", "description": "Назва пристрою" },
+          "model": { "type": "string", "description": "Модель пристрою" },
+          "status": { "type": "string", "description": "Поточний стан пристрою (активний, неактивний)" },
+          "conditionRef": { "type": "integer", "description": "Посилання на стан середовища" },
+          "workerRef": { "type": "integer", "description": "ID робітника, який обслуговує пристрій" }
+        },
+        "required": ["deviceId", "name", "status"]
+      }
+    },
+    "conditions": {
+      "description": "Показники умов середовища музею",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "condId": { "type": "integer", "description": "Ідентифікатор набору умов" },
+          "temperature": { "type": "number", "description": "Температура, °C" },
+          "humidity": { "type": "number", "description": "Вологість, %" },
+          "co2Level": { "type": "number", "description": "Рівень CO₂ у повітрі" }
+        },
+        "required": ["condId"]
+      }
+    },
+    "securitySystems": {
+      "description": "Системи безпеки музею",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "secSysId": { "type": "integer", "description": "Ідентифікатор системи безпеки" },
+          "status": { "type": "string", "description": "Поточний стан системи" },
+          "operationMode": { "type": "string", "description": "Режим роботи (автоматичний, ручний)" },
+          "lastUpdated": { "type": "string", "format": "date-time", "description": "Час останнього оновлення стану" }
+        },
+        "required": ["secSysId", "status"]
+      }
+    },
+    "incidents": {
+      "description": "Зареєстровані інциденти системи безпеки",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "incidentId": { "type": "integer", "description": "Ідентифікатор інциденту" },
+          "secSysId": { "type": "integer", "description": "ID системи безпеки, що зафіксувала інцидент" },
+          "workerRef": { "type": "integer", "description": "ID робітника, який отримав сповіщення" },
+          "type": { "type": "string", "description": "Тип інциденту (тривога, збій тощо)" },
+          "timestamp": { "type": "string", "format": "date-time", "description": "Дата і час події" },
+          "description": { "type": "string", "description": "Детальний опис інциденту" },
+          "severity": { "type": "integer", "minimum": 0, "maximum": 10, "description": "Рівень серйозності (0-10)" }
+        },
+        "required": ["incidentId", "secSysId", "type", "timestamp"]
+      }
+    },
+    "services": {
+      "description": "Сервісні служби та контактна інформація",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "serviceId": { "type": "integer", "description": "Ідентифікатор сервісу" },
+          "departmentName": { "type": "string", "description": "Назва відділу або служби" },
+          "contactInfo": {
+            "type": "string",
+            "description": "Контактна інформація (телефон або email)",
+            "pattern": "^(\\+?[0-9 \\-().]{7,30}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})$",
+            "maxLength": 200
+          }
+        },
+        "required": ["serviceId", "departmentName", "contactInfo"]
+      }
+    },
+    "paintings": {
+      "description": "Картини, що зберігаються у музеї",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "paintingId": { "type": "integer", "description": "Ідентифікатор картини" },
+          "title": {
+            "type": "string",
+            "description": "Назва картини",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^.{1,200}$"
+          },
+          "author": { "type": "string", "description": "Автор картини" },
+          "year": { "type": "integer", "minimum": 1000, "maximum": 9999, "description": "Рік створення" },
+          "style": { "type": "string", "description": "Художній стиль" },
+          "conditionRef": { "type": "integer", "description": "Посилання на умови зберігання" },
+          "workerRef": { "type": "integer", "description": "ID робітника, який спостерігає за картиною" }
+        },
+        "required": ["paintingId", "title"]
+      }
+    }
+  },
+  "additionalProperties": false
+}
