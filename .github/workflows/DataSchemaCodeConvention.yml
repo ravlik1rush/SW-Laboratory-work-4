@@ -3,7 +3,7 @@ name: JSON Linter
 on:
   push:
     branches:
-      - main   # твоя гілка
+      - main
 
 jobs:
   json_linter_test:
