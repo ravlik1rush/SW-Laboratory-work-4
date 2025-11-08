@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v3
 
       # Встановлення Biome
-      - name: Install Biome
+      - name: Install JSON/JS Linter
         run: npm install --save-dev --save-exact @biomejs/biome
 
-      # Перевірка тільки ProgramCodeModified.js
-      - name: Validate ProgramCodeModified.js
+      # Перевірка JS файлів, ігноруючи package.json
+      - name: Validate all JS files
         run: npx @biomejs/biome check
         env:
-          FILTER_REGEX_INCLUDE: ProgramCodeModified.js
+          FILTER_REGEX_EXCLUDE: package.json
