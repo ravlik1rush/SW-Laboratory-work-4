@@ -1,5 +1,5 @@
 {
-"$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MuseumMonitoring",
   "description": "Схема моніторингу систем музею: працівники, пристрої, сенсори, умови, інциденти тощо.",
   "type": "object",
@@ -28,7 +28,7 @@
           },
           "role": { "type": "string", "description": "Посада або роль працівника" }
         },
-        "required": ["workerId", "firstName", "lastName", "role"]
+        "required": ["workerId", "firstName", "lastName", "role", "age"]
       }
     },
     "sensors": {
@@ -165,3 +165,4 @@
   },
   "additionalProperties": false
 }
+
