@@ -1,11 +1,12 @@
-name: Javascript Code Linter
+name: JavaScript Code Linter for ProgramCodeModified.js
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  JavaScriptCodeLinter:
+  LintProgramCode:
     runs-on: ubuntu-latest
     steps:
       # Клонування репозиторію
@@ -18,6 +19,4 @@ jobs:
 
       # Перевірка тільки ProgramCodeModified.js
       - name: Lint ProgramCodeModified.js
-        run: npx @biomejs/biome check
-        env:
-          FILTER_REGEX_INCLUDE: 2.6-GitHubActions/ProgramCodeModified.js
+        run: npx @biomejs/biome check 2.6-GitHubActions/ProgramCodeModified.js
