@@ -1,0 +1,23 @@
+name: JSON Linter
+
+on:
+  push:
+    branches:
+      - main   # твоя гілка
+
+jobs:
+  json_linter_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Клонування репозиторію
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Встановлення jsonlint
+      - name: Install JSON Linter
+        run: npm install -g @prantlf/jsonlint
+
+      # Перевірка JSON
+      - name: Lint DataSchema.json
+        run: jsonlint $GITHUB_WORKSPACE/DataSchema.json
