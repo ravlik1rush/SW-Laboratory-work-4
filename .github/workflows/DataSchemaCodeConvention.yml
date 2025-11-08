@@ -1,6 +1,6 @@
 name: JSON Linter
 
-on:
+on: 
   push:
     branches:
       - main
