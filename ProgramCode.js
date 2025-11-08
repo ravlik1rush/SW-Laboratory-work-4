@@ -1,2 +1,2 @@
-var productName = "MuseumMonitoringApp";
-console.log('Актуальна назва програмного продукту -' + productName)
+const productName = "MuseumMonitoringApp";
+console.log(`Актуальна назва програмного продукту - ${productName}`);
