@@ -9,15 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Клонування репозиторію
-      - name: Checkout Code in Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       # Встановлення Biome
-      - name: Install JSON/JS Linter
+      - name: Install Biome
         run: npm install --save-dev --save-exact @biomejs/biome
 
-      # Перевірка JS файлів, ігноруючи package.json
-      - name: Validate all JS files
+      # Перевірка тільки ProgramCodeModified.js
+      - name: Lint ProgramCodeModified.js
         run: npx @biomejs/biome check
         env:
-          FILTER_REGEX_EXCLUDE: package.json
+          FILTER_REGEX_INCLUDE: 2.6-GitHubActions/ProgramCodeModified.js
