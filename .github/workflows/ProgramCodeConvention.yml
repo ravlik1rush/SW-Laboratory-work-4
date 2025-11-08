@@ -1,0 +1,22 @@
+name: JavaScript Code Linter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  JavaScriptCodeLinter:
+    runs-on: ubuntu-latest
+    steps:
+      # Клонування репозиторію
+      - name: Checkout Code in Repository
+        uses: actions/checkout@v3
+
+      # Встановлення Biome Linter
+      - name: Install Biome Linter
+        run: npm install --save-dev --save-exact @biomejs/biome
+
+      # Перевірка всіх js-файлів
+      - name: Validate all JS files
+        run: npx @biomejs/biome check.js
