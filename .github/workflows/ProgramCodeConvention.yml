@@ -1,4 +1,4 @@
-name: JavaScript Code Linter for ProgramCodeModified.js
+name: JavaScript Code Linter for ProgramCode.js
 
 on:
   push:
@@ -9,14 +9,11 @@ jobs:
   LintProgramCode:
     runs-on: ubuntu-latest
     steps:
-      # Клонування репозиторію
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Встановлення Biome
       - name: Install Biome
         run: npm install --save-dev --save-exact @biomejs/biome
 
-      # Перевірка тільки ProgramCodeModified.js
-      - name: Lint ProgramCodeModified.js
+      - name: Lint ProgramCode.js
         run: npx @biomejs/biome check ProgramCode.js
