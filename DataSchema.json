@@ -134,7 +134,7 @@
             "maxLength": 200
           }
         },
-        "required": ["serviceId", "departmentName", "contactInfo"]
+        "required": ["serviceId", "departmentName", "contactInfo"
       }
     },
     "paintings": {
@@ -162,7 +162,7 @@
         "required": ["paintingId", "title"]
       }
     }
-  },
+  }
   "additionalProperties": false
 }
 
