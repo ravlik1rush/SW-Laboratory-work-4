@@ -19,4 +19,4 @@ jobs:
 
       # Перевірка тільки ProgramCodeModified.js
       - name: Lint ProgramCodeModified.js
-        run: npx @biomejs/biome check ProgramCodeModified.js
+        run: npx @biomejs/biome check ProgramCode.js
